@@ -400,14 +400,7 @@ class PluginManager(object):
         return None
 
     def is_plugin_class(self, clazz):
-        for parent in clazz.__bases__:
-            if parent == PluginObject:
-                self.log.trace("It's the right subclass!")
-                return True
-        for parent in clazz.__bases__:
-            if self.is_plugin_class(parent):
-                return True
-        return False
+        return PluginObject in clazz.__mro__
 
     def unload_plugins(self, output=True):
         """
